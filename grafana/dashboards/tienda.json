@@ -508,6 +508,56 @@
           "range": true
         }
       ]
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Peticiones por endpoint de inventario",
+      "description": "Rate: peticiones por segundo que recibe cada endpoint del servicio de inventario.",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 35,
+        "w": 24,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 10,
+            "showPoints": "never"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "sum by (uri) (rate(http_server_requests_seconds_count{application=\"inventario\", uri!~\"/actuator.*\"}[1m]))",
+          "legendFormat": "{{uri}}",
+          "range": true
+        }
+      ]
     }
   ]
 }
